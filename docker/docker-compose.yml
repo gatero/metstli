@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+  api:
+    image: $API_IMAGE
+    build:
+      context: .
+    container_name: $API_CONTAINER
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - $API_PORT
+    expose:
+      - $API_EXPOSED_PORT
+    volumes:
+      - $API_VOLUME
+    env_file:
+      - .env
+  mysql:
+    image: $MYSQL_IMAGE
+    container_name: $MYSQL_CONTAINER
+    restart: always
+    expose:
+      - $MYSQL_EXPOSED_PORT
+    env_file:
+      - .env
+  mongo:
+    image: $MONGO_IMAGE
+    container_name: $MONGO_CONTAINER
+    restart: always
+    expose:
+      - $MONGO_EXPOSED_PORT
+    env_file:
+      - .env
+networks:
+  default:
+    name: $NETWORK
