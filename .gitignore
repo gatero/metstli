@@ -28,3 +28,5 @@ Gopkg.*
 
 .env
 environments/koyotl
+firebase/config.development.json
+certs/*

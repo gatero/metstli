@@ -2,14 +2,12 @@ version: '3.5'
 services:
   api:
     image: $API_IMAGE
-    build:
-      context: .
     container_name: $API_CONTAINER
+    environment:
+      VIRTUAL_HOST: $API_CONTAINER
     restart: always
     depends_on:
       - mysql
-    ports:
-      - $API_PORT
     expose:
       - $API_EXPOSED_PORT
     volumes:
@@ -30,6 +28,17 @@ services:
     restart: always
     expose:
       - $MONGO_EXPOSED_PORT
+    env_file:
+      - .env
+  proxy:
+    image: $PROXY_IMAGE
+    container_name: $PROXY_CONTAINER
+    ports:
+      - $PROXY_HTTP_PORTS
+      - $PROXY_HTTPS_PORTS
+    volumes:
+      - $PROXY_VOLUME_SSL
+      - $PROXY_VOLUME_SOCKET
     env_file:
       - .env
 networks:
