@@ -4,16 +4,16 @@ services:
     image: $STATIC_IMAGE
     container_name: $STATIC_CONTAINER
     restart: always
-    command: bash -c "yarn && yarn start"
+    command: bash -c "yarn && PORT=80 yarn start"
     expose:
       - $STATIC_EXPOSED_PORT
-    ports:
-      - $STATIC_PORTS
     volumes:
       - $STATIC_VOLUME
     working_dir: $STATIC_WORKING_DIR
     env_file:
       - .env
+    environment:
+      VIRTUAL_HOST: $STATIC_CONTAINER
 networks:
   default:
     name: $NETWORK

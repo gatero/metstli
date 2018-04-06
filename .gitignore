@@ -29,3 +29,4 @@ Gopkg.*
 .env
 environments/koyotl
 environments/oselotl
+environment/oselotl.development
